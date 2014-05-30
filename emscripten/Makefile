@@ -7,16 +7,18 @@ all: emscripten_zinnia.js test
 test: emscripten_zinnia_test.js
 	node emscripten_zinnia_test.js
 
-emscripten_zinnia.js: emscripten_zinnia.bc
-	em++ -O3 emscripten_zinnia.bc -o $@
+emscripten_zinnia.js: emscripten_zinnia.bc zh_Hans.model zh_Hant.model
+	em++ emscripten_zinnia.bc -O3 --preload-file zh_Hans.model \
+		--preload-file zh_Hant.model -s \
+		EXPORTED_FUNCTIONS="['_CharacterRecognize', '_InitRecog', '_ExitRecog']" \
+		-o $@
 
 emscripten_zinnia_test.js: emscripten_zinnia.bc zh_Hans.model
-	em++ -O3 emscripten_zinnia.bc --embed-file zh_Hans.model -o $@
+	em++ emscripten_zinnia.bc -O3 --embed-file zh_Hans.model -o $@
 
 emscripten_zinnia.bc: ../zinnia/libzinnia.cpp ../zinnia/param.cpp \
 	../zinnia/recognizer.cpp  ../zinnia/sexp.cpp ../zinnia/svm.cpp \
-	../zinnia/feature.cpp ../zinnia/character.cpp emscripten_zinnia.cpp \
-	zh_Hans.model zh_Hant.model
+	../zinnia/feature.cpp ../zinnia/character.cpp emscripten_zinnia.cpp
 	em++ -DHAVE_CONFIG_H -O3 ../zinnia/libzinnia.cpp ../zinnia/param.cpp \
 		../zinnia/recognizer.cpp ../zinnia/sexp.cpp ../zinnia/svm.cpp \
 		../zinnia/feature.cpp ../zinnia/character.cpp emscripten_zinnia.cpp \
@@ -36,7 +38,7 @@ zh_Hant.model: zh_Hant.s
 clean:
 	rm -f *.model* *.s
 	rm -f *.bc
-	rm -f *.js
+	rm -f *.js *.data *.js.map
 	rm -f *.o
 	rm -f ../zinnia/*.o
 
