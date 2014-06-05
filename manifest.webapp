@@ -1,0 +1,23 @@
+{
+  "name": "Hand Writing",
+  "description": "Hand Writing Recognition Demo",
+  "launch_path": "/index.html",
+  "developer": {
+    "name": "Yuan Xulei (袁徐磊)"
+  },
+  "locales": {
+    "zh-CN": {
+      "name": "手写识别",
+      "description": "手写识别演示"
+    },
+    "en-US": {
+      "name": "Hand Writing",
+      "description": "Hand Writing Recognition Demo"
+    }
+  },
+  "default_locale": "en-US",
+  "icons": {
+    "256": "/style/icons/icon_256.png"
+  },
+  "orientation": "default"
+}
