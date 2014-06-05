@@ -27,3 +27,4 @@ emscripten/*.model.txt
 emscripten/build
 emscripten/*.js
 emscripten/*.data
+emscripten/demo/js/emscripten_zinnia.js

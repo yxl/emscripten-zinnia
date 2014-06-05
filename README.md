@@ -22,7 +22,7 @@ Build
 
 For Linux (such as Ubuntu 12.04), run the following commands:
 
-`cd  $SRC_DIR/emscripten && make`
+`cd  $SRC_DIR/emscripten && ./bld.sh`
 
 If succeeded, you will see the following message:
 
@@ -30,7 +30,7 @@ If succeeded, you will see the following message:
  * node emscripten_zinnia_test.js
  * 前草帝荒奏洞考尊施葱
  * Test succeeded!
-
+ * build done! Open demo/index.html to run the demo.
 
 And get a library file - `emscripten_zinnia.js` alongside a data file - `emscripten_zinnia.data`.
 
