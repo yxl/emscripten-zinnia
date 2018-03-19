@@ -25,7 +25,7 @@ emscripten_zinnia.bc: ../zinnia/libzinnia.cpp ../zinnia/param.cpp \
 		-o $@
 
 zh_Hans.s zh_Hant.s: all-utf8.tdic
-	python generate_train_file.py all-utf8.tdic
+	python2 generate_train_file.py all-utf8.tdic
 
 zh_Hans.model: zh_Hans.s
 	./build/bin/zinnia_learn zh_Hans.s $@
