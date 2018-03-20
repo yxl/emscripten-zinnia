@@ -40,7 +40,7 @@ var HWREngine = {
 Module = {
   canvas: {},
   stdout: null,
-  _main: function() {
+  onRuntimeInitialized: function() {
     if (!HWREngine.init()) {
       alert('InitHzRecog failed\n');
       return;

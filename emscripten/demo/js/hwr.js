@@ -52,9 +52,12 @@ $(function () {
 	}
 
 	function mouseup(e) {
-		timeOutId = setTimeout(board.sendStrokePoints.bind(board), 50);
-		writing = false;
-		board.addStrokePoint(-1, 0);
+		if(writing == true)
+		{			
+			board.addStrokePoint(-1, 0);
+			timeOutId = setTimeout(board.sendStrokePoints.bind(board), 50);
+			writing = false;
+		}
 	}
 
   $("#c").mousedown(mousedown);

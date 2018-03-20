@@ -9,8 +9,9 @@ test: emscripten_zinnia_test.js
 
 emscripten_zinnia.js: emscripten_zinnia.bc zh_Hans.model zh_Hant.model
 	em++ emscripten_zinnia.bc -O3 --preload-file zh_Hans.model \
-		--preload-file zh_Hant.model -s \
-		EXPORTED_FUNCTIONS="['_CharacterRecognize', '_InitRecog', '_ExitRecog']" \
+		--preload-file zh_Hant.model \
+		-s EXPORTED_FUNCTIONS="['_CharacterRecognize', '_InitRecog', '_ExitRecog']" \
+		-s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]' \
 		-o $@
 
 emscripten_zinnia_test.js: emscripten_zinnia.bc zh_Hans.model
@@ -38,7 +39,7 @@ zh_Hant.model: zh_Hant.s
 clean:
 	rm -f *.model* *.s
 	rm -f *.bc
-	rm -f *.js *.data *.js.map
+	rm -f *.js *.data *.js.map *.js.mem
 	rm -f *.o
 	rm -f ../zinnia/*.o
 
