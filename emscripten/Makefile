@@ -9,8 +9,9 @@ test: emscripten_zinnia_test.js
 
 emscripten_zinnia.js: emscripten_zinnia.bc zh_Hans.model zh_Hant.model
 	em++ emscripten_zinnia.bc -O3 --preload-file zh_Hans.model \
-		--preload-file zh_Hant.model -s \
-		EXPORTED_FUNCTIONS="['_CharacterRecognize', '_InitRecog', '_ExitRecog']" \
+		--preload-file zh_Hant.model \
+		-s EXPORTED_FUNCTIONS="['_CharacterRecognize', '_InitRecog', '_ExitRecog']" \
+		-s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]' \
 		-o $@
 
 emscripten_zinnia_test.js: emscripten_zinnia.bc zh_Hans.model
@@ -25,7 +26,7 @@ emscripten_zinnia.bc: ../zinnia/libzinnia.cpp ../zinnia/param.cpp \
 		-o $@
 
 zh_Hans.s zh_Hant.s: all-utf8.tdic
-	python generate_train_file.py all-utf8.tdic
+	python2 generate_train_file.py all-utf8.tdic
 
 zh_Hans.model: zh_Hans.s
 	./build/bin/zinnia_learn zh_Hans.s $@
@@ -38,7 +39,7 @@ zh_Hant.model: zh_Hant.s
 clean:
 	rm -f *.model* *.s
 	rm -f *.bc
-	rm -f *.js *.data *.js.map
+	rm -f *.js *.data *.js.map *.js.mem
 	rm -f *.o
 	rm -f ../zinnia/*.o
 
